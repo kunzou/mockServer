@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:h="http://java.sun.com/jsf/html"
+			xmlns:p="http://primefaces.org/ui"
+			xmlns:f="http://java.sun.com/jsf/core"
+			xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+</h:head>
+
+<h:body style="margin-left:50px">
+	<h:form id="form">
+		<p:growl id="msgs" showDetail="true"/>
+
+		<p:dataTable id="rateCardTable" widgetVar="rateCards" var="rateCard" value="#{rateCardManagedBean.rateCards}"
+								 editable="true">
+			<p:ajax event="rowEdit" listener="#{rateCardManagedBean.onRowEdit}" update="rateCardTable :form:msgs"/>
+			<p:column headerText="Name">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.name}"/></f:facet>
+					<f:facet name="input"><p:inputText id="modelInput" value="#{rateCard.name}"
+																						 style="width:100%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Buy Rate">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.buyRate}"/></f:facet>
+					<f:facet name="input"><p:inputText value="#{rateCard.buyRate}" style="width:100%"
+																						 label="Buy Rate"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Max Fee">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.maxFee}"/></f:facet>
+					<f:facet name="input"><p:inputText value="#{rateCard.maxFee}" style="width:100%"
+																						 label="Max Fee"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Overage Split">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.overageSplit}"/></f:facet>
+					<f:facet name="input"><p:inputText value="#{rateCard.overageSplit}" style="width:100%"
+																						 label="Overage Split"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="NB Adjustment">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.nbAdjustment}"/></f:facet>
+					<f:facet name="input"><p:inputText value="#{rateCard.nbAdjustment}" style="width:100%"
+																						 label="NB Adjustment"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Reg Adjustment">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{rateCard.regAdjustment}"/></f:facet>
+					<f:facet name="input"><p:inputText value="#{rateCard.regAdjustment}" style="width:100%"
+																						 label="Reg Adjustment"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column style="width:3rem" exportable="false">
+				<p:rowEditor/>
+				<p:commandButton class="rounded-button ui-button-outlined" icon="pi pi-trash" process="@this" update="rateCardTable" action="#{rateCardManagedBean.delete(rateCard)}">
+				</p:commandButton>
+			</p:column>
+
+		</p:dataTable>
+
+		<div class="p-grid" style="padding-top: 30px;">
+			<div class="p-col-12">
+				<p:commandButton value="Add new row" process="@this"
+												 action="#{rateCardManagedBean.onAddNew()}" oncomplete="PF('rateCards').addRow();"/>
+			</div>
+		</div>
+
+		<div class="p-grid p-mt-3" style="padding-top: 30px;">
+			<div class="p-col-12">
+				<p:commandButton value="Export" styleClass="p-mr-2 p-mb-2" action="#{rateCardManagedBean.exportToText}" update="data"/>
+			</div>
+		</div>
+
+		<div class="p-grid p-mt-3" style="padding-top: 30px;">
+			<div class="p-col-12">
+				<p:commandButton value="Import" styleClass="p-mr-2 p-mb-2" action="#{rateCardManagedBean.importFromText}"  update="rateCardTable :form:msgs" />
+			</div>
+		</div>
+
+		<div class="p-grid p-mt-3" style="padding-top: 30px;">
+			<div class="p-col-12">
+				<p:inputTextarea id="data" value="#{rateCardManagedBean.data}" rows="6" style="width:100%"/>
+			</div>
+		</div>
+<!--		<div class="p-grid p-mt-3" style="padding-top: 30px;">
+			<div class="p-col-12">
+				<p:commandButton value="Export to csv file" styleClass="p-mr-2 p-mb-2">
+					<p:dataExporter type="csv" target="rateCardTable" fileName="rateCard" pageOnly="true"/>
+				</p:commandButton>
+
+			</div>
+		</div>-->
+	</h:form>
+</h:body>
+</html>
