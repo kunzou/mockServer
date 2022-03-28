@@ -23,13 +23,18 @@ public class RateCardServiceImpl implements RateCardService {
 	}
 
 	@Override
-	public void add(RateCard rateCard) {
-		rateCardRepository.save(rateCard);
+	public RateCard add(RateCard rateCard) {
+		return rateCardRepository.save(rateCard);
 	}
 
 	@Override
 	public void delete(RateCard rateCard) {
 		rateCardRepository.delete(rateCard);
+	}
+
+	@Override
+	public void delete(Long id) {
+		rateCardRepository.deleteById(id);
 	}
 
 	@Override

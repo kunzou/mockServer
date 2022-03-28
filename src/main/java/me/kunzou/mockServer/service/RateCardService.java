@@ -5,8 +5,9 @@ import me.kunzou.mockServer.domain.RateCard;
 
 public interface RateCardService {
 	List<RateCard> getRateCards();
-	void add(RateCard rateCard);
+	RateCard add(RateCard rateCard);
 	void delete(RateCard rateCard);
+	void delete(Long id);
 	RateCard save(RateCard rateCard);
 	void clearAllRateCards();
 	String exportAsText();
