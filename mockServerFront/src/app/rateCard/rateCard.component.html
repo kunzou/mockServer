@@ -1,0 +1,116 @@
+<div>
+  <br>
+  <div class="container">
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="center center" class="content">
+        <mat-card class="card" >
+          <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+            <h3>Rate Cards</h3>
+          </mat-card-title>
+          <mat-card-content>
+            <div class="example-container mat-elevation-z8">
+              <mat-table #table [dataSource]="dataSource">
+                <ng-container matColumnDef="name">
+                  <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="buyRate">
+                  <mat-header-cell *matHeaderCellDef> Buy Rate </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.buyRate}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="maxFee">
+                  <mat-header-cell *matHeaderCellDef> Max Fee </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.maxFee}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="overageSplit">
+                  <mat-header-cell *matHeaderCellDef> Overage Split </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.overageSplit}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nbAdjustment">
+                  <mat-header-cell *matHeaderCellDef> NB Adjustment </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.nbAdjustment}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="regAdjustment">
+                  <mat-header-cell *matHeaderCellDef> Reg Adjustment </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.regAdjustment}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)="deleteRateCard(element.id)" type="button">
+                      <mat-icon class="icon">delete</mat-icon>
+                    </a>
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a (click)="editRateCard(element)" type="button">
+                      <mat-icon class="icon">edit</mat-icon>
+                    </a>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+            <h3>Raw Data</h3>
+            <div class="example-container mat-elevation-z8">
+              <mat-form-field >
+                <textarea matInput
+                  [(ngModel)] = "rawData"
+                  [formControl]="descFC"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="2"
+                  cdkAutosizeMaxRows="5">
+                </textarea>
+              </mat-form-field>
+            </div>
+            <br>
+            <div class="container">
+              <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row"  fxLayoutAlign="space-around center" class="content">
+                <div>
+                  <button button="submit" mat-raised-button color="primary" (click)="openDialog()">
+                    <mat-icon>add</mat-icon> Add Card
+                  </button>
+                </div>
+                <div>
+                  <button button="submit" mat-raised-button color="primary" (click)="exportToText()">
+                    <mat-icon>text_fields</mat-icon>
+                    Export to Text
+                  </button>
+                </div>
+                <div>
+                  <button button="submit" mat-raised-button color="primary" (click)="importFromText()">
+                    <mat-icon>import_contacts</mat-icon>
+                    Import from Text
+                  </button>
+                </div>
+                <div>
+                  <button mat-raised-button color="primary" (click)="saveFile()">
+                    <mat-icon>file_download</mat-icon>
+                    Export to csv File
+                  </button>
+                </div>
+                <div>
+                  <button mat-raised-button color="primary" (click)="importFromFile()">
+                    <mat-icon>file_upload</mat-icon>
+                    Import from csv File
+                  </button>
+                </div>
+                <div>
+                  <button mat-raised-button color="primary" (click)="deleteAllRateCards()">
+                    <mat-icon>delete</mat-icon>
+                    Delete All
+                  </button>
+                </div>
+                <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
+                accept="text/*" style="display:none;" />
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

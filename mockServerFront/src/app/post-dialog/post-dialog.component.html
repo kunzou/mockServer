@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Rate Card</h1>
+<div mat-dialog-content>
+  <form class="example-form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Name" type="text" required [(ngModel)]="rateCard.name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Buy Rate" type="number" required [(ngModel)]="rateCard.buyRate" name="buyRate">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Max Fee" type="number" required [(ngModel)]="rateCard.maxFee" name="maxFee">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Overage Split" type="number" required [(ngModel)]="rateCard.overageSplit" name="overageSplit">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="NB Adjustment" type="number" required [(ngModel)]="rateCard.nbAdjustment" name="nbAdjustment">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Reg Adjustment" type="number" required [(ngModel)]="rateCard.regAdjustment" name="regAdjustment">
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary">Save</button>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="close" (click)="onNoClick()" color="warn">Cancel</button>
+</div>
