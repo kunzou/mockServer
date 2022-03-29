@@ -1,6 +1,7 @@
 package me.kunzou.mockServer.service;
 
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 import me.kunzou.mockServer.domain.RateCard;
 
 public interface RateCardService {
@@ -12,4 +13,5 @@ public interface RateCardService {
 	void clearAllRateCards();
 	String exportAsText();
 	void importFromText(String data) throws Exception;
+	void importFromCSVFile(MultipartFile file) throws Exception;
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import me.kunzou.mockServer.dao.RateCardRepository;
 import me.kunzou.mockServer.domain.RateCard;
 
@@ -57,9 +58,30 @@ public class RateCardServiceImpl implements RateCardService {
 	@Override
 	public void importFromText(String data) throws Exception {
 		if (data != null) {
+			clearAllRateCards();
 			for (String dataLine : data.split("\n")) {
 				String[] line = dataLine.replaceAll(" ", "").split(",");
 				add(new RateCard(line[0], line[1], line[2], line[3], line[4], line[5]));
+			}
+		}
+	}
+
+	@Override
+	public void importFromCSVFile(MultipartFile file) throws Exception {
+		String text = new String(file.getBytes());
+		importFromTextNoError(text);
+	}
+
+	private void importFromTextNoError(String data) {
+		if(data != null) {
+			clearAllRateCards();
+			for (String dataLine : data.split("\n")) {
+				String[] line = dataLine.replaceAll(" ", "").replaceAll("\"", "").split(",");
+				try {
+					add(new RateCard(line[0], line[1], line[2], line[3], line[4], line[5]));
+				} catch (Exception ignored) {
+				}
+
 			}
 		}
 	}

@@ -42,4 +42,27 @@ public class Controller {
 		rateCardService.delete(id);
 		return ResponseEntity.ok().build();
 	}
+
+	@GetMapping(value = "/ratecards/csv", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> getCSV() {
+		return ResponseEntity.ok().body(rateCardService.exportAsText());
+	}
+
+	@PostMapping("/ratecards/import")
+	public ResponseEntity importFromText(@RequestBody String text) throws Exception {
+		rateCardService.importFromText(text);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/ratecards/importFile")
+	public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
+		rateCardService.importFromCSVFile(file);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/ratecards/clear")
+	public ResponseEntity clearAll() throws Exception {
+		rateCardService.clearAllRateCards();
+		return ResponseEntity.ok().build();
+	}
 }
